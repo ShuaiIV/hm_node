@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "captchapng": "0.0.1",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3"
   }
 }
