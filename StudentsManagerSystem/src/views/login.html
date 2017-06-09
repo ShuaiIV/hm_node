@@ -71,8 +71,14 @@
 					vcode: vcode
 				},
 				success: (data) => {
-					console.log(vcode);
-					console.log(data);
+					// 根据返回的信息，判断验证是否通过
+					if (data.status != 1) {
+						// 验证不通过，警告栏显示错误信息
+						alert(data.message)
+					} else {
+						// 验证通过，跳转到管理页面
+						window.location.href = '/studentmanager/list'
+					}
 				},
 				error: (err) => {
 					console.log(err)
