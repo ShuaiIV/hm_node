@@ -60,7 +60,7 @@ module.exports.queryOne = (collectionName, condition, callback) => {
  * @param {num} limitCount 每页的数据数
  * @param {fn} callback 返回查询结果后，执行的回调函数
  */
-module.exports.queryList = (collectionName, condition, callback) => {
+module.exports.queryList = (collectionName, condition, skipCount, limitCount, callback) => {
 	// 获取到db对象
 	getDB((err, db) => {
 		// 出错则报错返回

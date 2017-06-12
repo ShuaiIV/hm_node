@@ -1,0 +1,89 @@
+<!--导入共用部分-->
+{{extend ("./public.html")}}
+
+<!--插入的部分-->
+{{#block ("body")}}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<ol class="breadcrumb">
+			<li><a href="#">首页</a></li>
+			<li><a href="#">学生管理</a></li>
+			<li class="active">学生列表</li>
+		</ol>
+	</div>
+	<div class="panel-heading">
+		<div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">学生姓名</span>
+			<input type="text" class="form-control" id="studentNameId" placeholder="请输入学生姓名进行查询" aria-describedby="basic-addon1" style="width:200px;margin-right:10px;"
+			 value="{{keyword}}">
+			<input type="button" class="btn btn-success" value="查找" style="margin-right:10px;">
+			<input type="button" class="btn btn-success" value="新增">
+		</div>
+	</div>
+	<div class="panel-body">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>年龄</th>
+					<th>性别</th>
+					<th>手机号码</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each(studentList)}}
+				<tr>
+					<td>{{this.name}}</td>
+					<td>{{this.age}}</td>
+					<td>{{this.gender}}</td>
+					<td>{{this.telNum}}</td>
+					<td>
+						<a href="javascript:;" class="btn btn-success">编辑</a> |
+
+						<input type="button" class="btn btn-danger" value="删除">
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+
+		<!-- 分页条 -->
+		<nav>
+			<ul class="pagination">
+				<!--向左翻页-->
+				<!--在链接中绑定当前页码-1的链接-->
+				<!--判断页码是否为0，若为0，则添加disabled类-->
+				{{# if ( page === 0)}}
+				<li class="disabled"><a aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+				{{ else }}
+				<li><a href="/studentmanager/list?page={{page - 1}}&count={{count}}&keyword={{keyword}}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+				{{/ if}}
+
+				<!-- 根据数据生成页码 -->
+				{{#each(pageList)}}
+				<!--给每个页码的超链接绑定上相应的页码-->
+				<!--给选中的当前页码添加active属性-->
+				{{# if ( this === page )}}
+				<li class="active"><a href="/studentmanager/list?page={{this}}&count={{count}}&keyword={{keyword}}">{{this + 1}}</a></li>
+				{{ else }}
+				<li><a href="/studentmanager/list?page={{this}}&count={{count}}&keyword={{keyword}}">{{this + 1}}</a></li>
+				{{/ if}}
+				{{/each}}
+
+				<!--向右翻页-->
+				<!--在链接中绑定当前页码+1的链接-->
+				<!--若页码为最后一项，则添加disabled属性-->
+				{{# if ( page === (pageList.length - 1) )}}
+				<li class="disabled"><a href="" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+				{{ else }}
+				<li><a href="/studentmanager/list?page={{page + 1}}&count={{count}}&keyword={{keyword}}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+				{{/ if}}
+			</ul>
+		</nav>
+	</div>
+</div>
+<script type="text/javascript">
+
+</script>
+{{/block}}

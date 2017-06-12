@@ -12,7 +12,7 @@ const bodyParser = require('body-parser')
 const app = express()
 
 // 集成静态资源中间件
-app.use(express.static(path.join(__dirname, 'statics')))
+app.use(express.static(path.join(__dirname, 'public')))
 
 // 使用body-parser解析POST参数
 app.use(bodyParser.urlencoded({ extended: false}))
@@ -27,9 +27,12 @@ app.use(session({
 }))
 
 // 创建路由
+// 登陆页面路由
 const accounterRouter = require(path.join(__dirname, 'routers/accounterRouter.js'))
 app.use('/accounter', accounterRouter)
-
+// 后台管理页面路由
+const studentManagerRouter = require(path.join(__dirname, 'routers/studentManagerRouter.js'))
+app.use('/studentmanager', studentManagerRouter)
 
 // 开启web服务
 app.listen(8777, '127.0.0.1', (err) => {
