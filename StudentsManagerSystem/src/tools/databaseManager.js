@@ -7,8 +7,10 @@ const mongodb = require('mongodb')
 // 创建数据库管理系统
 const mongodbClient = mongodb.MongoClient
 
-// // mongodb的ID前缀
-// const objectID = mongodb.ObjectId
+// // 获得mongodb的ID前缀
+const objectID = mongodb.ObjectId
+// 暴露接口
+module.exports.objectId = objectID
 
 // 要连接的数据库地址
 const url = "mongodb://localhost:27017/hm_db"
@@ -148,7 +150,7 @@ module.exports.addOne = (collectionName, condition, callback) => {
  * @param {obj} newValue 要修改的属性
  * @param {fn} callback 返回修改结果后，执行的回调函数
  */
-module.exports.updateValue = (collectionName, condition, newValue, callbakc) => {
+module.exports.updateValue = (collectionName, condition, newValue, callback) => {
 	// 获取到数据库对象
 	getDB((err, db) => {
 		// 若出错，则报错返回
@@ -157,7 +159,7 @@ module.exports.updateValue = (collectionName, condition, newValue, callbakc) => 
 			return false
 		} else {
 			// 获取到要查询的集合
-			let colleciton = db.collection(collectionName)
+			let collection = db.collection(collectionName)
 
 			// 修改指定的数据
 			collection.updateOne(condition, {$set: newValue}, (err, doc) => {

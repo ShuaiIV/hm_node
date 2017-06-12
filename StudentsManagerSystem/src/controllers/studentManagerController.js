@@ -63,3 +63,64 @@ module.exports.queryStuList = (req, res) => {
 
 
 }
+
+// 新增学生的方法
+
+// 返回修改学生信息页面的方法
+module.exports.editStuInfoPage = (req, res) => {
+	// 获取学生的ID
+	let studentId = dbManager.objectId(req.params.stuId)
+
+	// 根据学生ID在数据库查询相应的信息，并通过xtpl模板引擎渲染到页面中
+	dbManager.queryOne('students_info', { _id: studentId }, (err, doc) => {
+		// 如果出错，则报错返回
+		if (err) {
+			console.log(err)
+			return false
+		} else {
+			// 使用xtpl模板引擎渲染要返回的页面
+			xtpl.renderFile(path.join(__dirname, '../views/edit.html'), { studentInfo: doc }, (err, content) => {
+				// 如果出错，则报错返回
+				if (err) {
+					console.log(err)
+					return false
+				} else {
+					// 设置相应头
+					res.setHeader('Content-type', 'text/html;charset=utf-8')
+					// 设置响应体
+					res.end(content)
+				}
+			})
+		}
+	})
+}
+
+// 修改学生信息的方法
+module.exports.editStuInfo = (req, res) => {
+	// 获取要修改的学生ID
+	let studentId = dbManager.objectId(req.params.id)
+
+	// 在数据库中修改学生信息
+	dbManager.updateValue('students_info', { _id: studentId }, req.body, (err, doc) => {
+		// 如果出错，则报错返回
+		if (err) {
+			console.log(err)
+			return false
+		} else {
+			// 如果请求成功，则返回列表页
+			if (doc != null) {
+				// 设置响应头
+				res.setHeader('Content-type', 'text/html;charset=utf-8')
+				// 设置响应体
+				res.end('<script>window.location.href="/studentmanager/list"</script>')
+			} else {
+				// 修改不成功时，返回提示
+				// 设置响应头
+				res.setHeader('Content-type', 'text/html;charset=utf-8')
+				// 设置响应体
+				res.end('<script>window.alert("修改失败")</script>')
+			}
+
+		}
+	})
+}

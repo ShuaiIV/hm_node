@@ -12,7 +12,12 @@ const studentManagerRouter = express.Router()
 const studentManagerCtrl = require(path.join(__dirname, '../controllers/studentManagerController.js'))
 
 // 处理二级路由
+// 获得学生列表的路由
 studentManagerRouter.get('/list', studentManagerCtrl.queryStuList)
+// 获得修改学生信息页面的路由
+studentManagerRouter.get('/edit/:stuId', studentManagerCtrl.editStuInfoPage)
+// 请求修改学生信息的路由
+studentManagerRouter.post('/edit/:id', studentManagerCtrl.editStuInfo)
 
 
 // 暴露路由接口
