@@ -65,26 +65,33 @@ module.exports.login = (req, res) => {
 
 		// 返回结果
 		res.json(result)
+	} else {
+		// 验证用户名和密码
+		dbManager.queryOne('user_list', { name: params.username, password: params.password }, (err, doc) => {
+			// 如果查询不到结果
+			if (doc == null) {
+				result.status = 2
+				result.message = "用户名或密码错误"
+			} else {
+				// 登录成功后，将用户名存入session中
+				// 目的1：用于后续的权限验证
+				// 目的2：在欢迎页面使用
+				req.session.loginedName = params.username
+			}
+
+			// 返回结果
+			res.json(result)
+		})
 	}
+}
 
-	// 验证用户名和密码
-	dbManager.queryOne('user_list', { name: params.username, password: params.password }, (err, doc) => {
-		// 如果查询不到结果
-		if (doc == null) {
-			result.status = 2
-			result.message = "用户名或密码错误"
-		} else {
-			// 登录成功后，将用户名存入session中
-			// 目的1：用于后续的权限验证
-			// 目的2：在欢迎页面使用
-			req.session.loginedName = params.name
-		}
-
-		// 返回结果
-		res.json(result)
-	})
-
-
-
-
+// 处理登出请求逻辑
+module,exports.logout = (req, res) => {
+	// 将已经登录的用户名清空
+	req.session.loginedName = null
+	// 跳转到登录页面
+	// 设置响应头
+	res.setHeader('Content-type', 'text/html;charset-utf-8')
+	// 设置响应体
+	res.end('<script>window.location.href="/account/login"</script>')
 }

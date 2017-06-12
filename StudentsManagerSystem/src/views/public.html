@@ -23,7 +23,8 @@
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
 						<div class="navbar-header">
-							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-5" aria-expanded="false">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-5"
+							 aria-expanded="false">
 								<span class="sr-only">Toggle navigation</span>
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
@@ -52,10 +53,20 @@
 			</div>
 			<div class="col-md-9">
 
-				 {{{block ("body")}}}
+				{{{block ("body")}}}
 
 			</div>
 		</div>
 	</div>
+
+	<script>
+		// 退出功能
+		const logout = () => {
+			if (confirm("确认退出吗?")) {
+				window.location.href = "/account/logout"
+			}
+		}
+	</script>
 </body>
+
 </html>

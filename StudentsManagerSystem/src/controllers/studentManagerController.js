@@ -44,7 +44,7 @@ module.exports.queryStuList = (req, res) => {
 					return false
 				} else {
 					// 将获取到的数据通过x-tpl模板引擎渲染到页面上
-					xtpl.renderFile(path.join(__dirname, '../views/list.html'), { studentList: docs, keyword: keyword, page: page, count: count, pageList: pageArr }, (err, content) => {
+					xtpl.renderFile(path.join(__dirname, '../views/list.html'), { studentList: docs, keyword: keyword, page: page, count: count, pageList: pageArr, loginedName: req.session.loginedName }, (err, content) => {
 						// 如果出错，则报错返回
 						if (err) {
 							console.log(err)
@@ -67,7 +67,7 @@ module.exports.queryStuList = (req, res) => {
 // 返回添加学生信息页面的方法
 module.exports.addStuInfoPage = (req, res) => {
 	// 使用xtpl模板引擎渲染要返回的页面
-	xtpl.renderFile(path.join(__dirname, '../views/add.html'), (err, content) => {
+	xtpl.renderFile(path.join(__dirname, '../views/add.html'), {loginedName: req.session.loginedName}, (err, content) => {
 		// 如果出错，则报错返回
 		if (err) {
 			console.log(err)
@@ -121,7 +121,7 @@ module.exports.editStuInfoPage = (req, res) => {
 			return false
 		} else {
 			// 使用xtpl模板引擎渲染要返回的页面
-			xtpl.renderFile(path.join(__dirname, '../views/edit.html'), { studentInfo: doc }, (err, content) => {
+			xtpl.renderFile(path.join(__dirname, '../views/edit.html'), { studentInfo: doc, loginedName: req.session.loginedName }, (err, content) => {
 				// 如果出错，则报错返回
 				if (err) {
 					console.log(err)
