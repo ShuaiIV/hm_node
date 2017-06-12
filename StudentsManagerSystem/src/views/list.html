@@ -90,5 +90,12 @@
 	searchBtn.on('click', () => {
 		window.location.href = "/studentmanager/list?keyword=" + $('#studentNameId').val();
 	})
+
+	// 新增学生功能
+	// 获取目标元素对象
+	let addBtn = $('input[value="新增"]');
+	addBtn.on('click', () => {
+		window.location.href = '/studentmanager/add';
+	})
 </script>
 {{/block}}

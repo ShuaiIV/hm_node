@@ -10,41 +10,41 @@
 			</ol>
 		</div>
 		<div class="panel-body">
-	<form action="/studentmanager/edit/{{studentInfo._id}}" method="post" class="form-horizontal">
+	<form action="/studentmanager/add/{{studentInfo._id}}" method="post" class="form-horizontal">
 	<div class="form-group">
 		<label for="vtitle" class="col-sm-2 control-label">姓名</label>
 		<div class="col-sm-10">
-		<input type="text" class="form-control" name="name" value="{{studentInfo.name}}" id="name" placeholder="请输入姓名">
+		<input type="text" class="form-control" name="name" value="" id="name" placeholder="请输入姓名">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="vsortno" class="col-sm-2 control-label">年龄</label>
 		<div class="col-sm-10">
-		<input type="Number" class="form-control" name="age" value="{{studentInfo.age}}" id="age" placeholder="请输入年龄">
+		<input type="Number" class="form-control" name="age" value="" id="age" placeholder="请输入年龄">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="vvideoid" class="col-sm-2 control-label">性别</label>
 		<div class="col-sm-10">
-		<input type="text" class="form-control" name="gender" value="{{studentInfo.gender}}" id="sex" placeholder="请输入性别">
+		<input type="text" class="form-control" name="gender" value="" id="sex" placeholder="请输入性别">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="vsummary" class="col-sm-2 control-label">电话</label>
 		<div class="col-sm-10">
-		<input type="text" class="form-control" name="telNum" value="{{studentInfo.telNum}}" id="phone" placeholder="请输入电话">
+		<input type="text" class="form-control" name="telNum" value="" id="phone" placeholder="请输入电话">
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="vimg" class="col-sm-2 control-label">地址</label>
 		<div class="col-sm-10">
-		<input type="text" class="form-control" name="address"	value="{{studentInfo.address}}" id="address" placeholder="请输入地址">
+		<input type="text" class="form-control" name="address"	value="" id="address" placeholder="请输入地址">
 		</div>
 	</div>
 	 <div class="form-group">
 		<label for="vremark" class="col-sm-2 control-label">简介</label>
 		<div class="col-sm-10">
-			<textarea style="width: 550px;height: 220px" name="introduction" placeholder="请输入简介">{{studentInfo.introduction}}</textarea>
+			<textarea style="width: 550px;height: 220px" name="introduction" placeholder="请输入简介"></textarea>
 		</div>
 	</div>
 	

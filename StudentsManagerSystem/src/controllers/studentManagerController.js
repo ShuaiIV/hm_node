@@ -64,7 +64,49 @@ module.exports.queryStuList = (req, res) => {
 
 }
 
-// 新增学生的方法
+// 返回添加学生信息页面的方法
+module.exports.addStuInfoPage = (req, res) => {
+	// 使用xtpl模板引擎渲染要返回的页面
+	xtpl.renderFile(path.join(__dirname, '../views/add.html'), (err, content) => {
+		// 如果出错，则报错返回
+		if (err) {
+			console.log(err)
+			return false
+		} else {
+			// 设置相应头
+			res.setHeader('Content-type', 'text/html;charset=utf-8')
+			// 设置响应体
+			res.end(content)
+		}
+	})
+}
+
+// 新增学生信息的方法
+module.exports.addStuInfo = (req, res) => {
+	// 在数据库中添加学生信息
+	dbManager.addOne('students_info', req.body, (err, doc) => {
+		// 如果出错，则报错返回
+		if (err) {
+			console.log(err)
+			return false
+		} else {
+			// 如果请求成功，则返回列表页
+			if (doc != null) {
+				// 设置响应头
+				res.setHeader('Content-type', 'text/html;charset=utf-8')
+				// 设置响应体
+				res.end('<script>window.location.href="/studentmanager/list"</script>')
+			} else {
+				// 修改不成功时，返回提示
+				// 设置响应头
+				res.setHeader('Content-type', 'text/html;charset=utf-8')
+				// 设置响应体
+				res.end('<script>window.alert("添加失败")</script>')
+			}
+
+		}
+	})
+}
 
 // 返回修改学生信息页面的方法
 module.exports.editStuInfoPage = (req, res) => {
