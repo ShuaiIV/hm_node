@@ -17,11 +17,13 @@ studentManagerRouter.get('/list', studentManagerCtrl.queryStuList)
 // 获得修改学生信息页面的路由
 studentManagerRouter.get('/edit/:stuId', studentManagerCtrl.editStuInfoPage)
 // 请求修改学生信息的路由
-studentManagerRouter.post('/edit/:id', studentManagerCtrl.editStuInfo)
+studentManagerRouter.post('/edit/:stuId', studentManagerCtrl.editStuInfo)
 // 获得添加学生信息页面的路由
 studentManagerRouter.get('/add', studentManagerCtrl.addStuInfoPage)
 // 请求添加学生信息的路由
 studentManagerRouter.post('/add', studentManagerCtrl.addStuInfo)
+// 请求删除学生信息的路由
+studentManagerRouter.get('/remove/:stuId', studentManagerCtrl.removeStudent)
 
 
 // 暴露路由接口

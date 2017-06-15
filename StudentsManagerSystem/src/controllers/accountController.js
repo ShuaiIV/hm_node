@@ -57,7 +57,7 @@ module.exports.login = (req, res) => {
 	}
 
 	// 验证验证码
-	console.log(params.vcode, req.session.vcodeId)
+	// console.log(params.vcode, req.session.vcodeId)
 	if (params.vcode != req.session.vcodeId) {
 		// 当验证码验证不通过时，将返回结果改为
 		result.status = 0

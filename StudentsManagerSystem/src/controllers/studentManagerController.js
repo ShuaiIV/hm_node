@@ -140,7 +140,7 @@ module.exports.editStuInfoPage = (req, res) => {
 // 修改学生信息的方法
 module.exports.editStuInfo = (req, res) => {
 	// 获取要修改的学生ID
-	let studentId = dbManager.objectId(req.params.id)
+	let studentId = dbManager.objectId(req.params.stuId)
 
 	// 在数据库中修改学生信息
 	dbManager.updateValue('students_info', { _id: studentId }, req.body, (err, doc) => {
@@ -163,6 +163,35 @@ module.exports.editStuInfo = (req, res) => {
 				res.end('<script>window.alert("修改失败")</script>')
 			}
 
+		}
+	})
+}
+
+// 删除学生信息的方法
+module.exports.removeStudent = (req, res) => {
+	// 获取要删除的学生id
+	const studentId = dbManager.objectId(req.params.stuId);
+	console.log(studentId)
+	// 在数据库中删除学生信息
+	dbManager.removeOne('students_info', {_id: studentId}, (err, doc) => {
+		// 如果出错，则报错返回
+		if (err) {
+			console.log(err)
+			return false
+		} else {
+			// 删除成功后，返回新的学生列表
+			if (doc != null) {
+				// 设置响应头
+				res.setHeader('Content-type', 'text/html;charset=utf-8')
+				// 设置响应体
+				res.end('<script>window.location.href="/studentmanager/list"</script>')
+			} else {
+				// 删除失败，提示用户
+				// 设置响应头
+				res.setHeader('Content-type', 'text/html;charset=utf-8')
+				// 设置响应体
+				res.end('<script>window.alert("删除失败！")</script>')
+			}
 		}
 	})
 }
