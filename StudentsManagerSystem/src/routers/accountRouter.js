@@ -20,6 +20,12 @@ accountRouter.get('/vcode', accountCtrl.getVcodeImage)
 accountRouter.post('/login', accountCtrl.login)
 // 处理登出逻辑
 accountRouter.get('/logout', accountCtrl.logout)
+// 处理获得注册页面逻辑
+accountRouter.get('/register', accountCtrl.getRegisterPage)
+// 处理注册用户名是否存在逻辑
+accountRouter.get('/register/:username', accountCtrl.judgeUsername)
+// 处理注册用户逻辑
+accountRouter.post('/register', accountCtrl.register)
 
 // 暴露路由接口
 module.exports = accountRouter

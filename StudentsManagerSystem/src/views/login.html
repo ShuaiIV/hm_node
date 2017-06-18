@@ -6,6 +6,8 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
 	<script type="text/javascript" src="/js/jquery.min.js"></script>
+	<!--引入MD5加密插件-->
+	<script src="/js/md5.js"></script>
 </head>
 
 <body>
@@ -59,7 +61,8 @@
 		const login = () => {
 			// 获取表单中的数据
 			let username = $('#usernameId').val();
-			let password = $('#passwordId').val();
+			// 使用MD5插件加密密码
+			let password = $.md5($('#passwordId').val());
 			let vcode = $('#vcodeId').val();
 
 			// 发送Ajax请求
@@ -84,6 +87,11 @@
 					console.log(err)
 				}
 			});
+		};
+
+		// 跳转到注册页面
+		const register = () => {
+			window.location.href = '/account/register';
 		}
 	</script>
 

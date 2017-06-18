@@ -171,7 +171,7 @@ module.exports.editStuInfo = (req, res) => {
 module.exports.removeStudent = (req, res) => {
 	// 获取要删除的学生id
 	const studentId = dbManager.objectId(req.params.stuId);
-	console.log(studentId)
+
 	// 在数据库中删除学生信息
 	dbManager.removeOne('students_info', {_id: studentId}, (err, doc) => {
 		// 如果出错，则报错返回

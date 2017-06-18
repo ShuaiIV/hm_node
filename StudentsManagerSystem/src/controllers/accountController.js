@@ -86,7 +86,7 @@ module.exports.login = (req, res) => {
 }
 
 // 处理登出请求逻辑
-module,exports.logout = (req, res) => {
+module, exports.logout = (req, res) => {
 	// 将已经登录的用户名清空
 	req.session.loginedName = null
 	// 跳转到登录页面
@@ -94,4 +94,79 @@ module,exports.logout = (req, res) => {
 	res.setHeader('Content-type', 'text/html;charset-utf-8')
 	// 设置响应体
 	res.end('<script>window.location.href="/account/login"</script>')
+}
+
+// 处理请求注册页面逻辑
+module.exports.getRegisterPage = (req, res) => {
+	fs.readFile(path.join(__dirname, '../views/register.html'), (err, data) => {
+		// 如果出错，则报错返回
+		if (err) {
+			console.log(err)
+			return false
+		} else {
+			// 返回数据
+			// 设置请求头
+			res.setHeader('Content-type', 'text/html;charset=utf-8')
+			res.end(data)
+		}
+	})
+}
+
+// 处理判断用户名是否存在逻辑
+module.exports.judgeUsername = (req, res) => {
+	// console.log(req.params.username)
+	// 先初始化返回的结果，根据验证结果的不同，来改变结果的值
+	const result = {
+		status: 1,
+		message: "该用户名可以注册"
+	}
+	// 向数据库中查询此用户名是否存在
+	dbManager.queryOne('user_list', { name: req.params.username }, (err, doc) => {
+		// 如果出错，则报错返回
+		if (err) {
+			console.log(err)
+			return false
+		} else {
+			// 如果查询到数据，则不可以注册这个用户名
+			if (doc != null) {
+				result.status = 0
+				result.message = "该用户名已被注册，请填写新的用户名"
+			}
+			res.json(result)
+		}
+	})
+}
+
+// 处理注册用户请求逻辑
+module.exports.register = (req, res) => {
+	// 借助body-parser解析POST请求参数
+	let params = req.body
+	console.log(params);
+
+	// 先创建一个对象来返回响应信息
+	const result = {
+		status: 1,
+		message: '注册成功，请返回登陆页面！'
+	}
+
+	// 在数据库中添加新注册的用户
+	dbManager.addOne('user_list', params, (err, doc) => {
+		// 如果出错，则报错返回
+		if (err) {
+			console.log(err)
+			return false
+		} else {
+			// console.log(doc);
+			if (doc == null) {
+				result.status = 0
+				result.message = '注册失败，请重试！'
+			}
+		}
+
+		// 返回结果
+		// 设置响应头
+		res.setHeader('Content-Type', 'text/html;charset=utf-8')
+		// 设置响应体
+		res.json(result)
+	})
 }
